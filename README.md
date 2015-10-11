@@ -1,4 +1,4 @@
-# helen
+# helen [![Build Status](https://travis-ci.org/gernest/helen.svg)](https://travis-ci.org/gernest/helen) [![GoDoc](https://godoc.org/github.com/gernest/helen?status.svg)](https://godoc.org/github.com/gernest/helen) [![Coverage Status](https://coveralls.io/repos/gernest/helen/badge.svg?branch=master&service=github)](https://coveralls.io/github/gernest/helen?branch=master)
 
 Helen is the static assets handler for golang based web applications. Helen simply handles serving your static files that is javascript, stylesheets and images.
 
@@ -67,13 +67,16 @@ This example uses `gorilla mux` router. Note that you can bind the helen handler
 You can add any alice compatible middlewares to the `*Static` instance. If you  want gzip compression and you have a wonderful implementation called `gzipMe`.
 
 Then,
+```go
 	static:=helen.Static("static")
 	static.Use(gzipMe)
+```
 
 Will register your middleware. Not that you can pass whatever number of middlewares you want to the `Static.Use` method.
 
 
 # Documentation
+[![GoDoc](https://godoc.org/github.com/gernest/helen?status.svg)](https://godoc.org/github.com/gernest/helen)
 
 # TODO
 - Optimize memory usage
