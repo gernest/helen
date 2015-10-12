@@ -1,3 +1,4 @@
+// Package helen provides a clean handler for your static assets.
 package helen
 
 import (
