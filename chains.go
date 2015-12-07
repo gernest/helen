@@ -11,10 +11,15 @@ import (
 )
 
 var (
-	minifier = minify.New()
-
 	mediaStylesheet = "text/css"
 	mediaJavascript = "text/javascript"
+
+	minifier = func() *minify.M {
+		m := minify.New()
+		m.AddFunc(mediaStylesheet, css.Minify)
+		m.AddFunc(mediaJavascript, js.Minify)
+		return m
+	}()
 )
 
 // MinifyChain minifies the given src. Files supported are javascript and stylesheet.
@@ -22,9 +27,9 @@ func MinifyChain(src *StaticFile) *StaticFile {
 	buf := &bytes.Buffer{}
 	switch filepath.Ext(src.Name()) {
 	case ".css":
-		css.Minify(minifier, mediaStylesheet, buf, src)
+		minifier.Minify(mediaStylesheet, buf, src)
 	case ".js":
-		js.Minify(minifier, mediaJavascript, buf, src)
+		minifier.Minify(mediaJavascript, buf, src)
 	default:
 		io.Copy(buf, src)
 	}
