@@ -203,12 +203,14 @@ func newCache() *cache {
 }
 
 func (c *cache) GetOk(key string) (file File, ok bool) {
+	c.mu.RLock()
 	file, ok = c.files[key]
+	c.mu.RUnlock()
 	return
 }
 
 func (c *cache) Set(key string, val File) {
-	c.mu.RLock()
+	c.mu.Lock()
 	c.files[key] = val
-	c.mu.RUnlock()
+	c.mu.Unlock()
 }
